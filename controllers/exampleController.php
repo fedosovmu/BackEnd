@@ -13,12 +13,15 @@ class exampleController extends Controller {
 	}
 
 	public function add(){
+        $json = file_get_contents('php://input');
+        $_POST = json_decode($json, true);
 		if(isset($_POST['title'])){
 			// мы передаем в модель массив с данными
 			// модель должна вернуть boolean
 			$dataToSave=array('title'=>$_POST['title']);
 			$addedItem=$this->model->create($dataToSave);
 			$this->setResponce($addedItem);
+            $this->setResponce('lol');
 		}
 	}
 
