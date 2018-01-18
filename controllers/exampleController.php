@@ -29,10 +29,9 @@ class exampleController extends Controller {
         $json = file_get_contents('php://input');
         $_PUT = json_decode($json, true);
 
-        if( isset($_PUT['id']) &&
-            isset($_PUT['title'])) {
+        if(isset($_PUT['title'])) {
 
-            $dataToSave = array('id'  => $_PUT['id'],
+            $dataToSave = array(
                                 'title'  => $_PUT['title']);
 
             $editedItem = $this->model->save($data['id'], $dataToSave);
