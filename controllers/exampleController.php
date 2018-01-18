@@ -21,13 +21,29 @@ class exampleController extends Controller {
 			$dataToSave=array('title'=>$_POST['title']);
 			$addedItem=$this->model->create($dataToSave);
 			$this->setResponce($addedItem);
-            $this->setResponce('lol');
 		}
 	}
 
-	public function edit($id){
+	public function edit($data){
 		// НАПИШИТЕ РЕАЛИЗАЦИЮ метода save в классе Model
+        $json = file_get_contents('php://input');
+        $_PUT = json_decode($json, true);
 
-	}	
+        if( isset($_PUT['id']) &&
+            isset($_PUT['title'])) {
+
+            $dataToSave = array('id'  => $_PUT['id'],
+                                'title'  => $_PUT['title']);
+
+            $editedItem = $this->model->save($data['id'], $dataToSave);
+            $this->setResponce($editedItem);
+        }
+	}
+
+    public function delete($data)
+    {
+        $deletedItem = $this->model->delete($data['id']);
+        $this->setResponce($deletedItem);
+    }
 
 }
